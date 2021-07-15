@@ -13,7 +13,8 @@ flake8-bandit~=2.1
 flake8-docstrings~=1.5
 flake8-isort~=4.0
 
-
+#packages
+prompt-toolkit~=3.0.19
 beautifulsoup4==4.9.3
 bs4==0.0.1
 random-user-agent==1.0.1

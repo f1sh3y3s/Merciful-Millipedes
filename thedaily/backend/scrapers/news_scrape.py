@@ -2,8 +2,11 @@ from typing import List, Optional
 
 import requests
 from bs4 import BeautifulSoup
+from bs4.element import Tag
 from random_user_agent.params import OperatingSystem
 from random_user_agent.user_agent import UserAgent
+
+from ..models import NewsPost
 
 BASE_URL = "https://news.google.com"
 
@@ -54,4 +57,12 @@ def get_top_news_from_googlenews(topic: [Optional] = None) -> List[str]:
     response = requests.get(url, headers={'User-Agent': agent}, allow_redirects=True)
     soup = BeautifulSoup(response.text, 'html.parser')
 
-    return soup.find_all("h3")
+    return list(map(sterilize_news, soup.find_all("h3")))
+
+
+def sterilize_news(news: Tag) -> NewsPost:
+    """This function coverts bs4 tag to a sterilized model object"""
+    title = news.text
+    url = news.get("href")
+
+    return NewsPost(news_title=title, source_url=url)

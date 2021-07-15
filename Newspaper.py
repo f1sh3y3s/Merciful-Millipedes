@@ -27,29 +27,23 @@ topics = [
     "health"
 ] 
 
-def sorting(w_list, num_tup):
-    L = []
-    for i in num_tup:
-        txt = f"Please press {w_list[i][0]} for {w_list[i]}"
-        L += [Window(FormattedTextControl(txt), wrap_lines=True, cursorline=True)]
-    return L
+def sorting(w_list):
+    main_L = [Window(content=front_buffer_control, height=1,
+		right_margins=[ScrollbarMargin(display_arrows=True)])]
 
-body = HSplit([
-	Window(content=front_buffer_control, height=1,
-		right_margins=[ScrollbarMargin(display_arrows=True)]),
-		VSplit(
-			sorting(topics, (0, 1)),
-		padding_char="|"), Window(height=1, char="-"),
-		VSplit(
-			sorting(topics, (2, 3)),
-		padding_char="|", padding=1), Window(height=1, char="-"),
-		VSplit(
-			sorting(topics, (4, 5)),
-		padding_char="|", padding=1), Window(height=1, char="-"),
-		VSplit(
-			sorting(topics, (6, 7)),
-		padding_char="|", padding=1), Window(height=1, char="-"),
-	
-], style='bg:#fefefe fg:#000')
+    for j in range(4):
+    	side_L = []
+
+    	for i in range(2*j, (2*j)+2):
+	        txt = f"Please press {w_list[i][0].upper()} for {w_list[i].capitalize()} News"
+	        side_L += [Window(FormattedTextControl(txt), wrap_lines=True, cursorline=True, align=WindowAlign.CENTER)]
+
+    	split_section =[VSplit(side_L, padding_char="|", padding=1), Window(height=1, char="-")]
+    	main_L+=split_section
+
+    return main_L
+
+body = HSplit(sorting(topics), style='bg:#fefefe fg:#000')
+
 
 front_page_layout = Frame(body=body, title="Front Page")

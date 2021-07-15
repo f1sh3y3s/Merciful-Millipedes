@@ -30,9 +30,10 @@ def get_top_jobs_from_indeed() -> List[str]:
 
 
 def sterilize_job(job: Tag) -> JobPost:
-    """This function coverts bs4 tag to a sterilized model object"""
+    """Coverts bs4 tag to a sterilized model object"""
     url = BASE_URL + job.find("a", {"class": ""}).get("href")
     title = job.find("h2").find_all("span")[-1].text
     company = job.find("a").text.split(",")[0]
+    description = [list_item.text for list_item in job.find("ul").find_all("li")]
 
-    return JobPost(job_url=url, job_title=title, company_name=company)
+    return JobPost(job_url=url, job_title=title, company_name=company, description=description)

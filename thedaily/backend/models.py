@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+from typing import List
 
 
 @dataclass
@@ -25,4 +26,5 @@ class JobPost:
     job_title: str
     company_name: str
     job_url: str
+    description: List[str]
     job_location: str = "remote"

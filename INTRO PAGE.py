@@ -19,17 +19,22 @@ kb = KeyBindings()
 @kb.add('o')
 def _(event):
     """Toggling"""
-    if app.layout.current_control == front_buffer_control:
-        app.layout.focus_previous()
-    else:
-        app.layout.current_control = front_buffer_control
+    app.layout.current_control = front_buffer_control
 
 @kb.add('q')
 def _(event):
 	event.app.exit()
 
+@kb.add('b')
+def _(event):
+	app.layout.focus_previous()
+
 # Layout
 buffer1 = Buffer()
+
+with open("ascii_image.txt", "r") as file:
+	ASCII_NAME = "".join(i for i in file.readlines())
+	file.close()
 
 intro_text = """
 Hello and welcome to (newspaper name goes here). The most trusted news page in all the lands. Here you will 
@@ -47,7 +52,7 @@ intro_page = HSplit([
 	# The Main Intro Page
 	FloatContainer(content=HSplit([
 		# WILL CONTAIN THE NEWSPAPER HEADING 
-		Window(content=FormattedTextControl(text='NEWSPAPER ASCII ART GOES HERE'), height=10),
+		Window(content=FormattedTextControl(text=ASCII_NAME), height=10),
 		Window(content=FormattedTextControl(HTML(intro_text)), height=10),
 
 	], style='bg:#fefefe fg:#000', padding=1, padding_char="-"), 

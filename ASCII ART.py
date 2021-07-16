@@ -1,4 +1,5 @@
 import PIL.Image
+
 """
 # ASCII CHARACTERS 
 ASCII = ['@', '#', 'S', '%', '?', '*', '+', ';', ':', ',', '.']

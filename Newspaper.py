@@ -1,16 +1,16 @@
-from prompt_toolkit import prompt
-from prompt_toolkit import print_formatted_text, HTML
-from prompt_toolkit.application import Application
+from prompt_toolkit import HTML, print_formatted_text, prompt
+from prompt_toolkit.application import Application, run_in_terminal
+from prompt_toolkit.buffer import Buffer
 from prompt_toolkit.document import Document
 from prompt_toolkit.key_binding import KeyBindings
+from prompt_toolkit.layout import (
+    ConditionalContainer, Float, FloatContainer, HSplit, VSplit, Window
+)
 from prompt_toolkit.layout.containers import HSplit, Window
-from prompt_toolkit.layout.margins import ScrollbarMargin
-from prompt_toolkit.buffer import Buffer
-from prompt_toolkit.layout.controls import BufferControl,FormattedTextControl
+from prompt_toolkit.layout.controls import BufferControl, FormattedTextControl
 from prompt_toolkit.layout.layout import Layout
+from prompt_toolkit.layout.margins import ScrollbarMargin
 from prompt_toolkit.widgets import Frame
-from prompt_toolkit.layout import (HSplit, VSplit, FloatContainer, ConditionalContainer, Float, Window)
-from prompt_toolkit.application import run_in_terminal
 
 front_buffer = Buffer(document=Document('', 0), read_only=True, name='first_window')
 front_buffer_control = BufferControl(buffer=front_buffer)
@@ -24,7 +24,8 @@ topics = [
     "entertainment",
     "sports",
     "science",
-    "health"
+    "health",
+		"job",
 ] 
 
 def slide(num):

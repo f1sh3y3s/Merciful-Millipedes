@@ -1,18 +1,17 @@
-from prompt_toolkit import prompt
-from prompt_toolkit import print_formatted_text, HTML
-from prompt_toolkit.application import Application
-from prompt_toolkit.key_binding import KeyBindings
-from prompt_toolkit.layout.containers import HSplit, Window
+from prompt_toolkit import HTML, print_formatted_text, prompt
+from prompt_toolkit.application import Application, run_in_terminal
 from prompt_toolkit.buffer import Buffer
-from prompt_toolkit.layout.controls import BufferControl,FormattedTextControl
-from prompt_toolkit.layout.layout import Layout
-from prompt_toolkit.layout import (HSplit, VSplit, FloatContainer, ConditionalContainer, Float, Window)
-from prompt_toolkit.application import run_in_terminal
 from prompt_toolkit.filters import has_focus
-from prompt_toolkit.key_binding.bindings.focus import focus_next
-from prompt_toolkit.key_binding.bindings.page_navigation import scroll_page_up, scroll_page_down
+from prompt_toolkit.key_binding import KeyBindings
+from prompt_toolkit.layout import (
+    ConditionalContainer, Float, FloatContainer, HSplit, VSplit, Window
+)
+from prompt_toolkit.layout.containers import HSplit, Window
+from prompt_toolkit.layout.controls import BufferControl, FormattedTextControl
+from prompt_toolkit.layout.layout import Layout
 
-from Newspaper import front_buffer, front_buffer_control, front_page_layout, body
+from Newspaper import front_buffer, front_buffer_control, front_page_layout
+from sections.job import job_buffer, job_buffer_control, job_layout
 
 # KEY BINDINGS
 kb = KeyBindings()
@@ -23,29 +22,23 @@ def _(event):
     """Toggling"""
     app.layout.current_control = front_buffer_control
 
+
+@kb.add('j')
+def _(event):
+    """Toggle window"""
+    if app.layout.current_control == job_buffer_control:
+        app.layout.focus_previous()
+    else:
+        app.layout.current_control = job_buffer_control
+
+
 @kb.add('q')
 def _(event):
-    event.app.exit()
+	event.app.exit()
 
 @kb.add('b')
 def _(event):
-    app.layout.focus_previous()
-
-kb.add("c-space")(focus_next)
-
-@kb.add("pageup")
-def _(event):
-    w = event.app.layout.current_window
-    event.app.layout.focus(app.window)
-    scroll_page_up(event)
-    event.app.layout.focus(w)
-
-@kb.add("pagedown")
-def _(event):
-    w = event.app.layout.current_window
-    event.app.layout.focus(app.window)
-    scroll_page_down(event)
-    event.app.layout.focus(w)
+	app.layout.focus_previous()
 
 # Layout
 buffer1 = Buffer()
@@ -75,7 +68,10 @@ intro_page = HSplit([
 
 	], style='bg:#fefefe fg:#000', padding=1, padding_char="-"), 
 	floats=[Float(width=100, height=30, top=3, bottom=2,
-        content=ConditionalContainer(content=front_page_layout, filter=has_focus(front_buffer)))]),
+        content=ConditionalContainer(content=front_page_layout, filter=has_focus(front_buffer))),
+				Float(width=100, height=30, top=3, bottom=2,
+        content=ConditionalContainer(content=job_layout, filter=has_focus(job_buffer)))
+				]),
 ])
 
 app = Application(layout=Layout(intro_page), key_bindings=kb, full_screen=True)

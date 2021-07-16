@@ -5,7 +5,7 @@ from prompt_toolkit.filters import Condition
 from prompt_toolkit.key_binding import KeyBindings
 from prompt_toolkit.layout import Layout
 from prompt_toolkit.layout.containers import (
-    ConditionalContainer, Float, HSplit, VSplit, Window, WindowAlign
+    ConditionalContainer, HSplit, VSplit, Window, WindowAlign
 )
 from prompt_toolkit.layout.controls import FormattedTextControl
 from prompt_toolkit.widgets import Frame
@@ -236,7 +236,8 @@ def refresh() -> None:
 
 def show_copyrights_and_controls() -> str:
     """Show author and copyrights and controls"""
-    return "© {} {} NY Times | press Tab for see the {}".format(
+    return "© {} {} NY Times \nUse arrow keys to navigate | \
+Press Ctrl-c to see the {} | If you wish to give up press `".format(
         crossword.author, crossword.copyright,
         "clues" if not FrameState.show_clues else "crossword")
 
@@ -261,7 +262,7 @@ puzzle_panel = Window(content=FormattedTextControl(
 )
 status_bar = Window(
     FormattedTextControl(show_copyrights_and_controls),
-    height=1,
+    height=2,
     style="reverse"
 )
 clue_panel_across = Window(
@@ -296,7 +297,7 @@ def _(event: Any) -> None:
 kb_for_main = KeyBindings()
 
 
-@kb_for_main.add("tab")
+@kb_for_main.add("c-c")
 def _(event: Any) -> None:
     FrameState.show_clues = not FrameState.show_clues
 
@@ -306,9 +307,9 @@ body = HSplit([
     key_bindings=kb_for_main)
 
 
-def crossword_model() -> Float:
-    """Return crossword puzzle float with clues [a-z] letf,right,up,down,tab,` key are binded"""
-    return Float(Frame(body, title=crossword.title, style='bg:#fefefe fg:#000'))
+def crossword_model() -> Frame:
+    """Return crossword puzzle float with clues [a-z] letf,right,up,down,ctrl-c,` key are binded"""
+    return Frame(body, title=crossword.title, style='bg:#fefefe fg:#000')
 
 
 if __name__ == "__main__":

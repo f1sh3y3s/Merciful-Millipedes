@@ -9,8 +9,10 @@ from prompt_toolkit.layout.layout import Layout
 from prompt_toolkit.layout import (HSplit, VSplit, FloatContainer, ConditionalContainer, Float, Window)
 from prompt_toolkit.application import run_in_terminal
 from prompt_toolkit.filters import has_focus
+from prompt_toolkit.key_binding.bindings.focus import focus_next
+from prompt_toolkit.key_binding.bindings.page_navigation import scroll_page_up, scroll_page_down
 
-from Newspaper import front_buffer, front_buffer_control, front_page_layout
+from Newspaper import front_buffer, front_buffer_control, front_page_layout, body
 
 # KEY BINDINGS
 kb = KeyBindings()
@@ -23,11 +25,27 @@ def _(event):
 
 @kb.add('q')
 def _(event):
-	event.app.exit()
+    event.app.exit()
 
 @kb.add('b')
 def _(event):
-	app.layout.focus_previous()
+    app.layout.focus_previous()
+
+kb.add("c-space")(focus_next)
+
+@kb.add("pageup")
+def _(event):
+    w = event.app.layout.current_window
+    event.app.layout.focus(app.window)
+    scroll_page_up(event)
+    event.app.layout.focus(w)
+
+@kb.add("pagedown")
+def _(event):
+    w = event.app.layout.current_window
+    event.app.layout.focus(app.window)
+    scroll_page_down(event)
+    event.app.layout.focus(w)
 
 # Layout
 buffer1 = Buffer()

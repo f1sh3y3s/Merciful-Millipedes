@@ -25,7 +25,7 @@ class CrossWord:
     TEST_PUZ_FILE = os.path.join(os.path.dirname(__file__), "nyk2.puz")  # puz
 
     def __init__(self, file_name: Optional[str] = TEST_PUZ_FILE) -> None:
-        self.puzzle = puz.read(file_name)
+        self.puzzle = puz.read(file_name) if file_name else puz.read(self.TEST_PUZ_FILE)
         self.author = self.puzzle.author
         self.title = self.puzzle.title  # date
         self.copyright = self.puzzle.copyright  # empty
@@ -236,5 +236,4 @@ def download_crossword(name: str = "nyk") -> str:
         xword_dl.save_puzzle(obj, file_path)
         return file_path
     except xword_dl.requests.ConnectionError:
-        print("Download failed")
         return None

@@ -5,12 +5,12 @@ from prompt_toolkit.filters import Condition
 from prompt_toolkit.key_binding import KeyBindings
 from prompt_toolkit.layout import Layout
 from prompt_toolkit.layout.containers import (
-    ConditionalContainer, HSplit, VSplit, Window, WindowAlign
+    ConditionalContainer, Float, HSplit, VSplit, Window, WindowAlign
 )
 from prompt_toolkit.layout.controls import FormattedTextControl
 from prompt_toolkit.widgets import Frame
 
-from .crossword import CrossWord
+from .crossword import CrossWord, download_crossword
 
 
 class FrameState:
@@ -19,13 +19,22 @@ class FrameState:
     show_clues = False
 
 
-crossword = CrossWord()
+DOWNLOAD_AT_START = False  # Download puzzle at start
+
+if DOWNLOAD_AT_START:
+    try:
+        file_name = download_crossword()
+    except Exception:
+        file_name = None
+    crossword = CrossWord(file_name=file_name)
+else:
+    crossword = CrossWord()
 
 kb_for_puzzle = KeyBindings()
 
 #
 # key binidings for puzzle
-# , , WindowAlign HSplit, VSplit
+#
 
 
 @kb_for_puzzle.add('left')
@@ -297,9 +306,9 @@ body = HSplit([
     key_bindings=kb_for_main)
 
 
-def crossword_model() -> Frame:
-    """Return crossword puzzle frame with clues"""
-    return Frame(body, title=crossword.title, style='bg:#fefefe fg:#000')
+def crossword_model() -> Float:
+    """Return crossword puzzle float with clues [a-z] letf,right,up,down,tab,` key are binded"""
+    return Float(Frame(body, title=crossword.title, style='bg:#fefefe fg:#000'))
 
 
 if __name__ == "__main__":

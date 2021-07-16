@@ -15,7 +15,7 @@ from prompt_toolkit.application import run_in_terminal
 front_buffer = Buffer(document=Document('', 0), read_only=True, name='first_window')
 front_buffer_control = BufferControl(buffer=front_buffer)
 
-# Shortening this long thing
+# Topic Assignment
 topics = [
 	"world",
     "local",
@@ -27,23 +27,33 @@ topics = [
     "health"
 ] 
 
-def sorting(w_list):
-    main_L = [Window(content=front_buffer_control, height=1,
-		right_margins=[ScrollbarMargin(display_arrows=True)])]
+def slide(num):
+	global topics
+	text = f"Press {topics[num][0].upper()} for {topics[num]}"
+	return text
 
-    for j in range(4):
-    	side_L = []
 
-    	for i in range(2*j, (2*j)+2):
-	        txt = f"Please press {w_list[i][0].upper()} for {w_list[i].capitalize()} News"
-	        side_L += [Window(FormattedTextControl(txt), wrap_lines=True, cursorline=True, align=WindowAlign.CENTER)]
-
-    	split_section =[VSplit(side_L, padding_char="|", padding=1), Window(height=1, char="-")]
-    	main_L+=split_section
-
-    return main_L
-
-body = HSplit(sorting(topics), style='bg:#fefefe fg:#000')
+body = HSplit([
+	Window(content=front_buffer_control, height=1,
+		right_margins=[ScrollbarMargin(display_arrows=True)]),
+		VSplit([
+			Window(FormattedTextControl(slide(0)), wrap_lines=True, cursorline=True),
+            Window(FormattedTextControl(slide(1)), wrap_lines=True),
+		], padding_char="|", padding=1), Window(height=1, char="-"),
+		VSplit([
+			Window(FormattedTextControl(slide(2)), wrap_lines=True, cursorline=True),
+            Window(FormattedTextControl(slide(3)), wrap_lines=True),
+		], padding_char="|", padding=1), Window(height=1, char="-"),
+		VSplit([
+			Window(FormattedTextControl(slide(4)), wrap_lines=True, cursorline=True),
+            Window(FormattedTextControl(slide(5)), wrap_lines=True),
+		], padding_char="|", padding=1), Window(height=1, char="-"),
+		VSplit([
+			Window(FormattedTextControl(slide(6)), wrap_lines=True, cursorline=True),
+            Window(FormattedTextControl(slide(7)), wrap_lines=True),
+		], padding_char="|", padding=1), Window(height=1, char="-"),
+	
+], style='bg:#fefefe fg:#000')
 
 
 front_page_layout = Frame(body=body, title="Front Page")

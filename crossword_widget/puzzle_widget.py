@@ -312,9 +312,9 @@ def crossword_model() -> Frame:
     return Frame(body, title=crossword.title, style='bg:#fefefe fg:#000')
 
 
-if __name__ == "__main__":
-    application = Application(
-        layout=Layout(crossword_model()),
-        key_bindings=kb_for_app,
-        full_screen=True)
-    application.run()
+# if __name__ == "__main__":
+#     application = Application(
+#         layout=Layout(crossword_model()),
+#         key_bindings=kb_for_app,
+#         full_screen=True)
+#     application.run()

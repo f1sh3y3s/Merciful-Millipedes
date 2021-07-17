@@ -5,7 +5,7 @@ import turtle
 import keyboard
 
 
-def make_obj(color='white', stretch=(1, 1), cordinates=(0, 0), shape='square'):
+def make_obj(color: str='white', stretch: tuple=(1, 1), cordinates: tuple=(0, 0), shape: str='square') -> object:
     """The function to make the object on the turtle screen."""
     object_name = turtle.Turtle()
     object_name.speed(0)
@@ -17,30 +17,32 @@ def make_obj(color='white', stretch=(1, 1), cordinates=(0, 0), shape='square'):
     return object_name
 
 
-def paddle_a_up(paddle_a):
+def paddle_a_up(paddle_a: object) -> None:
     """Move the paddle_a up by 20."""
     y = paddle_a.ycor()
     if y + 50 < 290:
         y += 1
     paddle_a.sety(y)
+    return
 
 
-def paddle_a_down(paddle_a):
+def paddle_a_down(paddle_a: object) -> None:
     """Move the paddle_a down by 20."""
     y = paddle_a.ycor()
     if y - 50 > -290:
         y -= 1
     paddle_a.sety(y)
+    return
 
 
-def get_random_cords():
+def get_random_cords() -> None:
     """Give random cordinates for the ball to spawn."""
     x = random.randint(-200, 200)
     y = random.randint(-250, 250)
     return x, y
 
 
-def main():
+def main() -> None:
     # Window of turtle.
     window = turtle.Screen()
     window.title("Pong Game - Child's Play")
@@ -133,6 +135,7 @@ def main():
                     paddle_b.sety(paddle_b.ycor() + 1)
                 if paddle_b.ycor() - 50 > ball_y:
                     paddle_b.sety(paddle_b.ycor() - 1)
+    return
 
 
 if __name__ == '__main__':

@@ -141,5 +141,3 @@ def game() -> None:
                 if paddle_b.ycor() - 50 > ball_y:
                     paddle_b.sety(paddle_b.ycor() - 1)
     return
-
-

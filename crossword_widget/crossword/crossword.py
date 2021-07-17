@@ -1,6 +1,6 @@
-
 import os
 from collections import defaultdict, namedtuple
+from datetime import datetime
 from itertools import chain
 from typing import List, Optional
 
@@ -223,12 +223,13 @@ class Cell:
             self.check_ans = True
 
 
-def download_crossword(name: str = "nyk") -> str:
+def download_crossword() -> str:
     """
     Download NYT crossword using xword-dl
 
     :return: file path to puz file
     """
+    name = datetime.strftime(datetime.now(), "%Y%m%d")
     file_path = os.path.join(os.path.abspath(os.path.curdir), name+".puz")
     try:
         nyk = xword_dl.NewYorkerDownloader()

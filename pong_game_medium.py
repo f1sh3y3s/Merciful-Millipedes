@@ -87,7 +87,7 @@ def main():
         if random.randint(0, 50000) == 1:
             ball.dx = -0.1
         if random.randint(0, 100000) == 1:
-            ball.dy *= -1        
+            ball.dy *= -1
 
         # Move the ball.
         ball.setx(ball.xcor() + ball.dx)

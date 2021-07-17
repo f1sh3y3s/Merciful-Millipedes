@@ -3,16 +3,22 @@ import os
 import sys
 
 from bs4 import BeautifulSoup
-from prompt_toolkit.buffer import Buffer
-from prompt_toolkit.document import Document
-from prompt_toolkit.layout.containers import Container, ScrollOffsets, Window
-from prompt_toolkit.layout.controls import BufferControl
-from prompt_toolkit.layout.margins import ScrollbarMargin
-from prompt_toolkit.widgets import Frame
+from prompt_toolkit.key_binding import KeyBindings
+from prompt_toolkit.key_binding.bindings.focus import (
+    focus_next, focus_previous
+)
+from prompt_toolkit.layout import Dimension, HSplit, ScrollablePane, VSplit
+from prompt_toolkit.layout.containers import Container
+from prompt_toolkit.widgets import Frame, TextArea
 
 sys.path.insert(0, '..')
 from thedaily.backend.scrapers.jobs_scrape import \
     get_top_jobs_from_indeed  # noqa: E402
+
+kb = KeyBindings()
+
+kb.add("up")(focus_next)
+kb.add("down")(focus_previous)
 
 
 def get_job_data() -> str:
@@ -22,8 +28,17 @@ def get_job_data() -> str:
 
     if len(job_list) > 0:
         json_array = job_list
-        for item in json_array:
-            job_document += f'{item}\n{create_blank_lines()}\n\n'
+        rows = len(json_array) // 3
+        cols = 3
+        hs = []
+
+        for i in range(rows):
+            frame = ScrollablePane(VSplit([Frame(TextArea(text=f'{json_array[i*cols+j]}\n', wrap_lines=True,
+                                          style='bg:#fefefe fg:#000', read_only=True),
+                                   width=Dimension()) for j in range(3)]))
+
+            hs.append(frame)
+        return hs
     else:
         base_dir = os.path.abspath('')
         filename = 'sections/job_data.json'
@@ -54,10 +69,6 @@ def popup_window(title: str, body: Container) -> Frame:
     return Frame(body=body, title=title)
 
 
-job_buffer = Buffer(name='job_window', read_only=True, document=Document(get_job_data(), 0),)
-job_buffer_control = BufferControl(buffer=job_buffer)
-body = Window(content=job_buffer_control, right_margins=[ScrollbarMargin(display_arrows=True)],
-              scroll_offsets=ScrollOffsets(top=2, bottom=2), style='bg:#fefefe fg:#000', wrap_lines=True)
-
+body = ScrollablePane(HSplit(get_job_data(), key_bindings=kb, style='bg:#fefefe fg:#000'))
 
 job_layout = popup_window('Top Jobs', body)

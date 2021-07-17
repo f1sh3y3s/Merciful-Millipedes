@@ -9,6 +9,9 @@ class NewsPost:
     news_title: str
     source_url: str
 
+    def __repr__(self) -> str:
+        return f'{self.news_title}\n'
+
 
 @dataclass
 class RedditPost:
@@ -17,6 +20,9 @@ class RedditPost:
     post_title: str
     post_link: str
     subreddit: str
+
+    def __repr__(self) -> str:
+        return f'{self.post_title}\n'
 
 
 @dataclass

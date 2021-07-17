@@ -22,7 +22,7 @@ class RedditPost:
     subreddit: str
 
     def __repr__(self) -> str:
-        return f'{self.post_title}\n'
+        return f'{self.post_title}\nFull Post: {self.post_link}\n'
 
 
 @dataclass

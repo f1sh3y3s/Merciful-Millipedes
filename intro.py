@@ -29,7 +29,7 @@ with open("ascii_image.txt", "r") as file:
 
 ASCII_NAME = ASCII_NAME.translate(str.maketrans({".": " ", "!": " ", ":": " "}))
 intro_text = """
-Hello and welcome to (newspaper name goes here). The most trusted news page in all the lands. Here you will
+Hello and welcome to The Wanderer. The most trusted news page in all the lands. Here you will
   the latest news on all topics ranging from World News to National News to Sports and various other
  sections.
 

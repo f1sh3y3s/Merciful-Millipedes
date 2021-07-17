@@ -36,7 +36,7 @@ def get_news_data() -> str:
     hs.append(VSplit([Frame(TextArea(text='Use arrow to navigate', read_only=True))]))
     for t_idx in range(rows):
         frame = ScrollablePane(VSplit([Frame(TextArea(text=f'Topic: {found_topics[t_idx*cols + j]}\n\n'
-                                      f'{formatted_string(all_news[j + t_idx])}\n',
+                                      f'{formatted_string(all_news[t_idx*cols + j])}\n',
                                wrap_lines=True, style='bg:#fefefe fg:#000', read_only=True),
                                width=Dimension()) for j in range(2)]))
         hs.append(frame)

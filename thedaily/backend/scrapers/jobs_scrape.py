@@ -20,19 +20,19 @@ def get_top_jobs_from_indeed() -> List[str]:
     news: List
         A list of jobs around the location from the ip
     """
-    print("Fetching the lastest/most suitable jobs for you")
+    print("Fetching the latest/most suitable jobs for you")
     url = BASE_URL + "/jobs?l=remote&sort=date"
     agent = UserAgent(operating_systems=[OperatingSystem.LINUX.value]).get_random_user_agent()
 
-    response = requests.get(url, headers={'User-Agent': agent}, allow_redirects=True)
+    response = requests.get(url, headers={'User-Agent': agent})
     soup = BeautifulSoup(response.text, 'html.parser')
 
-    return list(map(sterilize_job, soup.find_all("div", {"class": "job_seen_beacon"})))
+    return list(map(sterilize_job, soup.find_all(lambda tag: tag.name == "a" and tag.get("id") and "job_" in tag.get("id"))))
 
 
 def sterilize_job(job: Tag) -> JobPost:
     """Coverts bs4 tag to a sterilized model object"""
-    url = BASE_URL + job.find("a", {"class": ""}).get("href")
+    url = BASE_URL + job.get("href")
     title = job.find("h2").find_all("span")[-1].text
     company = job.find("a").text.split(",")[0]
     description = [list_item.text for list_item in job.find("ul").find_all("li")]

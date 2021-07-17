@@ -1,3 +1,6 @@
+from asyncio import ensure_future
+from random import randrange
+from time import time
 from typing import Any
 
 from prompt_toolkit import HTML
@@ -9,9 +12,9 @@ from prompt_toolkit.layout.containers import (
 from prompt_toolkit.layout.controls import FormattedTextControl
 from prompt_toolkit.layout.layout import Layout
 
+from annoying_ads import AdDialog, joke_ad, simple_ad
 from crossword_widget import crossword_model
 from front_page import front_layout
-from pong_game_easy import game
 from reddit import reddit_layout
 from sections.job import job_layout
 
@@ -31,9 +34,7 @@ Hello and welcome to (newspaper name goes here). The most trusted news page in a
  sections.
 
 To change between the pages, <b> Please enter 'tab' </b>
-To go back, <b> Please enter 'shift-tab' </b>
 To exit the current page, <b>Please enter 'Q' </b>
-Want to break out of terminal? <b>Press P to play pong </b>
 """
 
 
@@ -46,6 +47,41 @@ class NewspaperState:
     window_no = 0  # remeber what float in
     float_active = False  # check i float is active
     main_window = None  # hold main window for focus
+    last_ad_time = 0  # time remainng after showing ad
+
+
+def show_ads() -> None:
+    """Show random ads after certain time"""
+    async def coroutine() -> None:
+        dialog = ''
+        randomAd = randrange(2)
+        if randomAd == 0:
+            dialog = simple_ad()
+        else:
+            dialog = joke_ad()
+        await show_dialog_as_float(dialog)
+    now = time()
+    if now - NewspaperState.last_ad_time > 10:
+        ensure_future(coroutine())
+        NewspaperState.last_ad_time = now
+
+
+async def show_dialog_as_float(dialog: AdDialog) -> None:
+    """Coroutine for show ads"""
+    float_ = Float(content=dialog, z_index=2)
+    body.floats.insert(0, float_)
+
+    # app = get_app()
+
+    focused_before = application.layout.current_window
+    application.layout.focus(dialog)
+    result = await dialog.future
+    application.layout.focus(focused_before)
+
+    if float_ in body.floats:
+        body.floats.remove(float_)
+
+    return result
 
 
 body = FloatContainer(
@@ -76,6 +112,7 @@ def next_page(event: Any) -> None:
             NewspaperState.float_active = False
             event.app.layout.focus(NewspaperState.main_window)
             NewspaperState.float_active = False
+        show_ads()
 
 
 def previous_page(event: Any) -> None:
@@ -100,6 +137,7 @@ def previous_page(event: Any) -> None:
             NewspaperState.float_active = False
             event.app.layout.focus(NewspaperState.main_window)
             NewspaperState.float_active = False
+        show_ads()
 
 
 # 2. Key bindings
@@ -120,11 +158,6 @@ def _(event: Any) -> None:
 @kb.add("s-tab")
 def _(event: Any) -> None:
     previous_page(event)
-
-
-@kb.add("p")
-def _(event: Any) -> None:
-    game()
 
 
 # 3. The `Application`

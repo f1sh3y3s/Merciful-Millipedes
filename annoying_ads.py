@@ -51,14 +51,18 @@ def simple_ad() -> button_dialog:
 
 def joke_ad() -> None:
     """Calls dialog that can open link in browser if the answer is incorrect"""
-    if button_dialog(
-            title='Idk',
-            text='Do you always follow PEP8?',
-            buttons=[
-                ('Yes', False),
-                ('No', True)],
-            style=style).run():
-        webbrowser.open('https://bit.ly/3ifW7F9')
+    # if button_dialog(
+    #         title='Idk',
+    #         text='Do you always follow PEP8?',
+    #         buttons=[
+    #             ('Yes', False),
+    #             ('No', True)],
+    #         style=style).run():
+    #     webbrowser.open('https://bit.ly/3ifW7F9')
+    return AdDialog(
+        title='Idk',
+        text='Do you always follow PEP8?',
+        button_text='Yes')
 
 
 def bar_ad() -> None:
@@ -71,7 +75,7 @@ def bar_ad() -> None:
     while True:
         dialog = button_dialog(
             title='Fill the bar!',
-            text=f'{content[counter]}[{bar * "==="}>] {bar}//10',
+            text=f'{content[counter]}[{bar * "==="}>] {bar}//5',
             buttons=random.sample([
                 ('*tap*', False),
                 ('No', True), ], 2),
@@ -87,7 +91,7 @@ def bar_ad() -> None:
             if counter != 0:
                 counter = 0
             bar += 1
-            if bar == 10:
+            if bar == 5:
                 break
 
 

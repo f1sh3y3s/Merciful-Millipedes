@@ -50,11 +50,11 @@ To enter the page, <b> Please enter 'o' </b>
 To exit the current page, <b>Please enter 'Q' </b>
 """
 intro_page_split = HSplit([FloatContainer(content=HSplit([Window(content=FormattedTextControl(text=ASCII_NAME),height=D.exact(1),),
-                          Window(content=FormattedTextControl(HTML(intro_text)), height=10)],style='bg:#fefefe fg:#000', padding=1, padding_char="-"), floats=[Float(width=100, height=30, top=3, bottom=2,
-        content=ConditionalContainer(content=job_layout, filter=Condition(lambda: JobStates.show_job))),
-				Float(width=100, height=30, top=3, bottom=2,
-        content=ConditionalContainer(content=crossword_model(), filter=Condition(lambda: PuzzleStats.show_puzzle)))
-				]),
+    Window(content=FormattedTextControl(HTML(intro_text)), height=10)],style='bg:#fefefe fg:#000', padding=1, padding_char="-"), floats=[Float(width=100, height=30, top=3, bottom=2,
+    content=ConditionalContainer(content=job_layout, filter=Condition(lambda: JobStates.show_job))),
+	Float(width=100, height=30, top=3, bottom=2,
+    content=ConditionalContainer(content=crossword_model(), filter=Condition(lambda: PuzzleStats.show_puzzle)))
+	]),
 ])
 
 
@@ -90,7 +90,7 @@ dialog = Dialog(title='NewsPaper', body=intro_page_split, buttons=[job_button, c
                 width=D(),
                 modal=False)
 
-app = Application(layout=Layout(intro_page_split), key_bindings=kb, full_screen=True)
+app = Application(layout=Layout(intro_page_split),key_bindings=kb, full_screen=True)
 
 
 app.run()

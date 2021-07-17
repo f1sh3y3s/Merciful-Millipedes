@@ -18,8 +18,8 @@ from thedaily.backend.scrapers.jobs_scrape import \
 kb = KeyBindings()
 
 
-kb.add("tab")(focus_next)
-kb.add("s-tab")(focus_previous)
+kb.add("pagedown")(focus_next)
+kb.add("pageup")(focus_previous)
 
 
 def get_job_data() -> str:
@@ -32,8 +32,8 @@ def get_job_data() -> str:
         horizontal_split = len(json_array) // 3
         hs = []
         for i in range(horizontal_split):
-            frame = ScrollablePane(VSplit([Frame(TextArea(text=f'{json_array[i+j]}\n', wrap_lines=True, style='bg:#fefefe fg:#000'),
-                                   width=Dimension()) for j in range(3)]))
+            frame = VSplit([
+                Frame(TextArea(text=f'{json_array[i+j]}\n', wrap_lines=True, style='bg:#fefefe fg:#000'), width=Dimension()) for j in range(3)])
             hs.append(frame)
         return hs
     else:

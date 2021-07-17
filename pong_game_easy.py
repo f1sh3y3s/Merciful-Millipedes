@@ -147,5 +147,6 @@ if __name__ == '__main__':
     try:
         main()
     except Exception as e:
-        print(e)
-        exit(0)
+        if e == 'hi':
+            print(e)
+        pass

@@ -33,7 +33,8 @@ def get_job_data() -> str:
         cols = 3
         hs = []
         for i in range(rows):
-            frame = ScrollablePane(VSplit([Frame(TextArea(text=f'{json_array[i*cols+j]}\n', wrap_lines=True, style='bg:#fefefe fg:#000'),
+            frame = ScrollablePane(VSplit([Frame(TextArea(text=f'{json_array[i*cols+j]}\n', wrap_lines=True,
+                                          style='bg:#fefefe fg:#000', read_only=True),
                                    width=Dimension()) for j in range(3)]))
             hs.append(frame)
         return hs

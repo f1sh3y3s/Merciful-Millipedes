@@ -11,8 +11,8 @@ from prompt_toolkit.layout.layout import Layout
 
 from crossword_widget import crossword_model
 from front_page import front_layout
-from sections.job import job_layout
 from reddit import reddit_layout
+from sections.job import job_layout
 
 model = crossword_model()
 jb_layout = job_layout
@@ -64,7 +64,7 @@ def _(event: Any) -> None:
     event.app.exit()
 
 
-@kb.add('s-tab')
+@kb.add('o')
 def _(event: Any) -> None:
     if not NewspaperState.main_window:
         NewspaperState.main_window = event.app.layout.current_window

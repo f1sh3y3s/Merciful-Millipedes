@@ -16,7 +16,10 @@ To promote reading to the younger generations as well, we have specifically adde
 We have tried to maintain the authenticity of a newspaper with our own little twists so that, it still after all remains like a newspaper of the good old days
 
 ## The Idea
-
-
+Considering the interface to be used as a Text User Interface(TUI) as well as the theme of "THINKING INSIDE THE BOX", what better idea was there than creating a newspaper.
+Since it sticks true to the concept of being comepletely text based as well as the fact that it technically is in a box, we decided to go ahead with the option of making a newspaper. 
+We also decided to put our own little twist to it by adding a few interactive games as well. \n
+We have also decided to add everyone's favourite..... ADS! Those pesky guys arent going anywhere either, just to stick to the realism 😜
+For the we have added the old timer crossword puzzles as well for those who miss that in these online papers.
 
 ## Setup

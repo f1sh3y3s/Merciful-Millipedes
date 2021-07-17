@@ -43,7 +43,7 @@ def get_random_cords() -> None:
     return x, y
 
 
-def main() -> None:
+def game() -> None:
     """Main Function for the game."""
     # Window of turtle.
     window = turtle.Screen()
@@ -143,10 +143,3 @@ def main() -> None:
     return
 
 
-if __name__ == '__main__':
-    try:
-        main()
-    except Exception as e:
-        if e == 'hi':
-            print(e)
-        pass

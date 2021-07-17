@@ -5,7 +5,8 @@ import turtle
 import keyboard
 
 
-def make_obj(color: str = 'white', stretch: tuple = (1, 1), cordinates: tuple = (0, 0), shape: str = 'square'):
+def make_obj(color: str = 'white', stretch: tuple = (1, 1), cordinates: tuple = (0, 0),
+             shape: str = 'square') -> object:
     """The function to make the object on the turtle screen."""
     object_name = turtle.Turtle()
     object_name.speed(0)
@@ -17,7 +18,7 @@ def make_obj(color: str = 'white', stretch: tuple = (1, 1), cordinates: tuple = 
     return object_name
 
 
-def paddle_a_up(paddle_a):
+def paddle_a_up(paddle_a: object) -> None:
     """Move the paddle_a up by 20."""
     y = paddle_a.ycor()
     if y + 50 < 290:
@@ -25,7 +26,7 @@ def paddle_a_up(paddle_a):
     paddle_a.sety(y)
 
 
-def paddle_a_down(paddle_a):
+def paddle_a_down(paddle_a: object) -> None:
     """Move the paddle_a down by 20."""
     y = paddle_a.ycor()
     if y - 50 > -290:
@@ -33,7 +34,7 @@ def paddle_a_down(paddle_a):
     paddle_a.sety(y)
 
 
-def get_random_cords():
+def get_random_cords() -> tuple:
     """Give random cordinates for the ball to spawn."""
     x = random.randint(-200, 200)
     y = random.randint(-250, 250)
@@ -114,8 +115,8 @@ def main() -> None:
             ball.dx *= -1
             score_a += 1
             pen.clear()
-            pen.write("You: " + str(score_a) + "  Computer: " + str(score_b), align="center", font=('Courier', 20, 'normal'))
-
+            pen.write("You: " + str(score_a) + "  Computer: " + str(score_b), align="center",
+                      font=('Courier', 20, 'normal'))
 
         if ball.xcor() < -390:
             x, y = get_random_cords()
@@ -123,14 +124,16 @@ def main() -> None:
             ball.dx *= -1
             score_b += 1
             pen.clear()
-            pen.write("You: " + str(score_a) + "  Computer: " + str(score_b), align="center", font=('Courier', 20, 'normal'))
+            pen.write("You: " + str(score_a) + "  Computer: " + str(score_b), align="center",
+                      font=('Courier', 20, 'normal'))
 
         # Paddle and ball colision.
-        if (ball.xcor() > 330 and ball.xcor() < 340) and (int(ball.ycor()) in list(range(paddle_b.ycor() - 50, paddle_b.ycor() + 50))):
+        if (ball.xcor() > 330 and ball.xcor() < 340) and\
+            (int(ball.ycor()) in list(range(paddle_b.ycor() - 50, paddle_b.ycor() + 50))):
             ball.setx(330)
             ball.dx *= -1
         if (ball.xcor() < -330 and ball.xcor() > -340) and\
-        (int(ball.ycor()) in list(range(int(paddle_a.ycor() - 50), int(paddle_a.ycor() + 50)))):
+            (int(ball.ycor()) in list(range(int(paddle_a.ycor() - 50), int(paddle_a.ycor() + 50)))):
             ball.setx(-330)
             ball.dx *= -1
 
@@ -149,5 +152,6 @@ if __name__ == '__main__':
     try:
         main()
     except Exception as e:
-        print(e)
+        if e == 'hi':
+            print(e)
         pass

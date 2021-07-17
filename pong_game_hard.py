@@ -16,12 +16,14 @@ def make_obj(color='white', stretch=(1, 1), cordinates=(0, 0), shape='square'):
     object_name.goto(cordinates[0], cordinates[1])
     return object_name
 
+
 def paddle_a_up(paddle_a):
     """Move the paddle_a up by 20."""
     y = paddle_a.ycor()
     if y + 50 < 290:
         y += 0.3
     paddle_a.sety(y)
+
 
 def paddle_a_down(paddle_a):
     """Move the paddle_a down by 20."""
@@ -30,10 +32,13 @@ def paddle_a_down(paddle_a):
         y -= 0.3
     paddle_a.sety(y)
 
+
 def get_random_cords():
+    """Give random cordinates for the ball to spawn."""
     x = random.randint(-200, 200)
     y = random.randint(-250, 250)
     return x, y
+
 
 def main():
     # Window of turtle.
@@ -123,7 +128,8 @@ def main():
         if (ball.xcor() > 330 and ball.xcor() < 340) and (int(ball.ycor()) in list(range(paddle_b.ycor() - 50, paddle_b.ycor() + 50))):
             ball.setx(330)
             ball.dx *= -1
-        if (ball.xcor() < -330 and ball.xcor() > -340) and (int(ball.ycor()) in list(range(int(paddle_a.ycor() - 50), int(paddle_a.ycor() + 50)))):
+        if (ball.xcor() < -330 and ball.xcor() > -340) and\
+        (int(ball.ycor()) in list(range(int(paddle_a.ycor() - 50), int(paddle_a.ycor() + 50)))):
             ball.setx(-330)
             ball.dx *= -1
 
@@ -135,6 +141,7 @@ def main():
                     paddle_b.sety(paddle_b.ycor() + 1)
                 if paddle_b.ycor() - 50 > ball_y:
                     paddle_b.sety(paddle_b.ycor() - 1)
+
 
 if __name__ == '__main__':
     try:

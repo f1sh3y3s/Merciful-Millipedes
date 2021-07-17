@@ -5,7 +5,7 @@ import turtle
 import keyboard
 
 
-def make_obj(color='white', stretch=(1, 1), cordinates=(0, 0), shape='square'):
+def make_obj(color: str = 'white', stretch: tuple = (1, 1), cordinates: tuple = (0, 0), shape: str = 'square'):
     """The function to make the object on the turtle screen."""
     object_name = turtle.Turtle()
     object_name.speed(0)
@@ -40,7 +40,8 @@ def get_random_cords():
     return x, y
 
 
-def main():
+def main() -> None:
+    """Main function for the game."""
     # Window of turtle.
     window = turtle.Screen()
     window.title('Pong Game - The Impossible')
@@ -141,10 +142,11 @@ def main():
                     paddle_b.sety(paddle_b.ycor() + 1)
                 if paddle_b.ycor() - 50 > ball_y:
                     paddle_b.sety(paddle_b.ycor() - 1)
+    return
 
 
 if __name__ == '__main__':
     try:
         main()
     except:
-        exit(0)
+        pass

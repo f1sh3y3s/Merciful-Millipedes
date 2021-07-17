@@ -1,38 +1,37 @@
 import PIL.Image
 
 """
-# ASCII CHARACTERS 
+# ASCII CHARACTERS
 ASCII = ['@', '#', 'S', '%', '?', '*', '+', ';', ':', ',', '.']
 
 # Resizing the image
 def resize(image, new_width=5 0):
-	width, height = image.size
-	ratio = height / width
-	new_height = int(new_width * ratio)
-	resized_image = image.resize((new_width, new_height))
-	return resized_image
+  width, height = image.size
+  ratio = height / width
+  new_height = int(new_width * ratio)
+  resized_image = image.resize((new_width, new_height))
+  return resized_image
 
 # Converting the Image into BnW
 def gray(image):
-	grayscale = image.convert('L')
-	return grayscale
+  grayscale = image.convert('L')
+  return grayscale
 
 # Assign each ASCII char
 def ASCIIfy(image):
-	pixels = image.getdata()
-	char = "".join(ASCII[pixel//25] for pixel in pixels)
-	return char
+  pixels = image.getdata()
+  char = "".join(ASCII[pixel//25] for pixel in pixels)
+  return char
 
 # Getting the image from path
 new_width=50
 def main(n_w):
-	path = input("Enter the Path to the photo =")
-	try:
-		image = PIL.Image.open(path)
-	except:
-		print("The given path is not valid")
-
-	return image
+  path = input("Enter the Path to the photo =")
+  try:
+    image = PIL.Image.open(path)
+  except:
+    print("The given path is not valid")
+  return image
 
 # Image in ASCII characters but all in one line
 new_image_data = ASCIIfy(gray(resize(main(new_width))))
@@ -46,21 +45,22 @@ print(ascii_image)
 
 # Saving to a file
 with open("ASCII.txt", "w") as file:
-	file.write(ascii_image)
+  file.write(ascii_image)
 
 main(new_width)
 """
-chars = ["B","S","#","&","@","$","%","*","!",":","."]
+chars = ["B", "S", "#", "&", "@", "$", "%", "*", "!", ":", "."]
 
 
-def find():
-	path = input("Enter the Path to the photo =")
-	try:
-		Image = PIL.Image.open(path)
-	except:
-		print(path, "The given path is not valid")
-
-	return Image
+def find() -> None:
+    """Function for rendering image"""
+    path = input("Enter the Path to the photo =")
+    try:
+        Image = PIL.Image.open(path)
+    except FileExistsError:
+        pass
+        print(path, "The given path is not valid")
+    return Image
 
 
 img = find()
@@ -91,10 +91,10 @@ print(ascii_image)
 
 # write to a text file.
 with open("ascii_image.txt", "w") as file:
-	file.write(ascii_image)
-	file.close()
+    file.write(ascii_image)
+    file.close()
 
 with open("ascii_image.txt", "r") as file:
-	ASCII_NAME = "".join(i for i in file.readlines())
-	print(ASCII_NAME)
-	file.close()
+    ASCII_NAME = "".join(i for i in file.readlines())
+    print(ASCII_NAME)
+    file.close()

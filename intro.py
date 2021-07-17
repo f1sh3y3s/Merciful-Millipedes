@@ -33,6 +33,7 @@ To enter the page, <b> Please enter 'o' </b>
 To exit the current page, <b>Please enter 'Q' </b>
 """
 
+
 class NewspaperState:
     """Hold attributes for Newspaper"""
 
@@ -95,11 +96,9 @@ application = Application(
     enable_page_navigation_bindings=True,)
 
 
-
 def run() -> None:
     """Run application"""
     application.run()
-
 
 
 if __name__ == "__main__":

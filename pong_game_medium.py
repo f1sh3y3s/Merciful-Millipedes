@@ -1,6 +1,6 @@
-import turtle
-import time
 import random
+import time
+import turtle
 import keyboard
 
 def make_obj(color='white', stretch=(1, 1), cordinates=(0, 0), shape='square'):
@@ -139,4 +139,3 @@ if __name__ == '__main__':
         main()
     except Exception as e:
         exit(0)
-        

@@ -5,8 +5,8 @@ import turtle
 import keyboard
 
 
-def make_obj(color: str = 'white', stretch: tuple = (1, 1), cordinates: tuple = (0, 0),\
-    shape: str = 'square') -> object:
+def make_obj(color: str = 'white', stretch: tuple = (1, 1), cordinates: tuple = (0, 0),
+             shape: str = 'square') -> object:
     """The function to make the object on the turtle screen."""
     object_name = turtle.Turtle()
     object_name.speed(0)
@@ -117,8 +117,8 @@ def main() -> None:
             ball.dx *= -1
             score_a += 1
             pen.clear()
-            pen.write("You: " + str(score_a) + "  Computer: " + str(score_b), align="center",\
-                font=('Courier', 20, 'normal'))
+            pen.write("You: " + str(score_a) + "  Computer: " + str(score_b), align="center",
+                      font=('Courier', 20, 'normal'))
 
         if ball.xcor() < -390:
             x, y = get_random_cords()
@@ -126,8 +126,8 @@ def main() -> None:
             ball.dx *= -1
             score_b += 1
             pen.clear()
-            pen.write("You: " + str(score_a) + "  Computer: " + str(score_b), align="center",\
-                font=('Courier', 20, 'normal'))
+            pen.write("You: " + str(score_a) + "  Computer: " + str(score_b), align="center",
+                      font=('Courier', 20, 'normal'))
 
         # Paddle and ball colision.
         if (ball.xcor() > 330 and ball.xcor() < 340) and\
@@ -153,5 +153,6 @@ def main() -> None:
 if __name__ == '__main__':
     try:
         main()
-    except:
+    except Exception as e:
+        print(e)
         exit(0)

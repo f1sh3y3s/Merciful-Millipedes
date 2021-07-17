@@ -10,14 +10,11 @@ from prompt_toolkit.layout.controls import FormattedTextControl
 from prompt_toolkit.layout.layout import Layout
 
 from crossword_widget import crossword_model
-from front_page import front_layout
+from Newspaper import front_page_layout
 from sections.job import job_layout
-from reddit import reddit_layout
 
 model = crossword_model()
 jb_layout = job_layout
-fr_layout = front_layout
-rd_layout = reddit_layout
 
 with open("ascii_image.txt", "r") as file:
     ASCII_NAME = "".join(i for i in file.readlines())
@@ -33,12 +30,13 @@ To enter the page, <b> Please enter 'o' </b>
 To exit the current page, <b>Please enter 'Q' </b>
 """
 
+
 class NewspaperState:
     """Hold attributes for Newspaper"""
 
     state = "center"
     current_float = None  # hold current float element
-    models = [fr_layout, jb_layout, model, rd_layout]  # all float elements
+    models = [front_page_layout, jb_layout, model]  # all float elements
     window_no = 0  # remeber what float in
     float_active = False  # check i float is active
     main_window = None  # hold main window for focus
@@ -63,7 +61,7 @@ def _(event: Any) -> None:
     event.app.exit()
 
 
-@kb.add('s-tab')
+@kb.add('o')
 def _(event: Any) -> None:
     if not NewspaperState.main_window:
         NewspaperState.main_window = event.app.layout.current_window
@@ -95,11 +93,9 @@ application = Application(
     enable_page_navigation_bindings=True,)
 
 
-
 def run() -> None:
     """Run application"""
     application.run()
-
 
 
 if __name__ == "__main__":

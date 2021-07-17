@@ -21,3 +21,4 @@ random-user-agent~=1.0.1
 Pillow~=8.3.1
 puzpy~=0.2.5
 requests~=2.25.1
+xword-dl~=2021.6.24

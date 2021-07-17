@@ -38,7 +38,7 @@ def get_top_news_from_googlenews(topic: [Optional] = None) -> List[str]:
         raise ValueError("""The available values of topics are only
                                                         World, Local, Business, Technology, Entertainment,
                                                         Sports, Science, Health""")
-
+    print(f"Fetching {topic if topic else 'hot'} news for you")
     topic_url = ""
     agent = UserAgent(operating_systems=[OperatingSystem.LINUX.value]).get_random_user_agent()
 

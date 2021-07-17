@@ -20,6 +20,7 @@ def get_top_jobs_from_indeed() -> List[str]:
     news: List
         A list of jobs around the location from the ip
     """
+    print("Fetching the lastest/most suitable jobs for you")
     url = BASE_URL + "/jobs?l=remote&sort=date"
     agent = UserAgent(operating_systems=[OperatingSystem.LINUX.value]).get_random_user_agent()
 

@@ -26,6 +26,7 @@ def get_top_posts_from_subreddit(subreddit: str, sort_by: [Optional] = "hot") ->
     if sort_by.lower() not in ["hot", "new", "rising", "controversial", "top"]:
         raise ValueError("The available values of sort_by are only Hot, New, Rising, Controversial, Top")
 
+    print("Fetching the best reddit posts for you")
     url = BASE_URL + "/r/" + subreddit + "/" + sort_by
     agent = agent = UserAgent(operating_systems=[OperatingSystem.LINUX.value]).get_random_user_agent()
 

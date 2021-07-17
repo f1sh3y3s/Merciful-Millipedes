@@ -1,5 +1,6 @@
 from typing import Any
 
+from prompt_toolkit.application.current import get_app
 from prompt_toolkit.filters import Condition
 from prompt_toolkit.key_binding import KeyBindings
 from prompt_toolkit.layout.containers import (
@@ -265,11 +266,11 @@ status_bar = Window(
     style="reverse"
 )
 clue_panel_across = Window(
-    FormattedTextControl("Across :\n"+crossword.get_across()),
+    FormattedTextControl("Across :\n"+crossword.get_across(), focusable=Condition(lambda: FrameState.show_clues)),
     wrap_lines=True,
     align=WindowAlign.LEFT)
 clue_panel_down = Window(
-    FormattedTextControl("Down :\n"+crossword.get_down()),
+    FormattedTextControl("Down :\n"+crossword.get_down(), focusable=Condition(lambda: FrameState.show_clues)),
     wrap_lines=True,
     align=WindowAlign.LEFT)
 clue_panel = VSplit([
@@ -299,6 +300,8 @@ kb_for_main = KeyBindings()
 @kb_for_main.add("c-c")
 def _(event: Any) -> None:
     FrameState.show_clues = not FrameState.show_clues
+    if not FrameState.show_clues:
+        get_app().layout.focus(puzzle_panel)
 
 
 body = HSplit([

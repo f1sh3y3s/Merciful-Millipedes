@@ -16,6 +16,7 @@ def make_obj(color='white', stretch=(1, 1), cordinates=(0, 0), shape='square'):
     object_name.goto(cordinates[0], cordinates[1])
     return object_name
 
+
 def paddle_a_up(paddle_a):
     """Move the paddle_a up by 20."""
     y = paddle_a.ycor()
@@ -23,17 +24,22 @@ def paddle_a_up(paddle_a):
         y += 0.5
     paddle_a.sety(y)
 
+
 def paddle_a_down(paddle_a):
     """Move the paddle_a down by 20."""
     y = paddle_a.ycor()
     if y - 50 > -290:
         y -= 0.5
     paddle_a.sety(y)
+    return
+
 
 def get_random_cords():
+    """Give random cordinates for the ball to spawn."""
     x = random.randint(-200, 200)
     y = random.randint(-250, 250)
     return x, y
+
 
 def main():
     # Window of turtle.
@@ -108,8 +114,8 @@ def main():
             ball.dx *= -1
             score_a += 1
             pen.clear()
-            pen.write("You: " + str(score_a) + "  Computer: " + str(score_b), align="center", font=('Courier', 20, 'normal'))
-
+            pen.write("You: " + str(score_a) + "  Computer: " +\
+                str(score_b), align="center", font=('Courier', 20, 'normal'))
 
         if ball.xcor() < -390:
             x, y = get_random_cords()
@@ -117,13 +123,16 @@ def main():
             ball.dx *= -1
             score_b += 1
             pen.clear()
-            pen.write("You: " + str(score_a) + "  Computer: " + str(score_b), align="center", font=('Courier', 20, 'normal'))
+            pen.write("You: " + str(score_a) + "  Computer: " +\
+                str(score_b), align="center", font=('Courier', 20, 'normal'))
 
         # Paddle and ball colision.
-        if (ball.xcor() > 330 and ball.xcor() < 340) and (int(ball.ycor()) in list(range(int(paddle_b.ycor() - 50), int(paddle_b.ycor() + 50)))):
+        if (ball.xcor() > 330 and ball.xcor() < 340) and\
+        (int(ball.ycor()) in list(range(int(paddle_b.ycor() - 50), int(paddle_b.ycor() + 50)))):
             ball.setx(330)
             ball.dx *= -1
-        if (ball.xcor() < -330 and ball.xcor() > -340) and (int(ball.ycor()) in list(range(int(paddle_a.ycor() - 50), int(paddle_a.ycor() + 50)))):
+        if (ball.xcor() < -330 and ball.xcor() > -340) and\
+        (int(ball.ycor()) in list(range(int(paddle_a.ycor() - 50), int(paddle_a.ycor() + 50)))):
             ball.setx(-330)
             ball.dx *= -1
 
@@ -136,8 +145,9 @@ def main():
                 if paddle_b.ycor() - 50 > ball_y:
                     paddle_b.sety(paddle_b.ycor() - 1)
 
+
 if __name__ == '__main__':
     try:
         main()
-    except Exception as e:
+    except:
         exit(0)

@@ -124,11 +124,11 @@ def main() -> None:
 
         # Paddle and ball colision.
         if (ball.xcor() > 330 and ball.xcor() < 340) and\
-            (int(ball.ycor()) in list(range(paddle_b.ycor() - 50, paddle_b.ycor() + 50))):
+                (int(ball.ycor()) in list(range(paddle_b.ycor() - 50, paddle_b.ycor() + 50))):
             ball.setx(330)
             ball.dx *= -1
         if (ball.xcor() < -330 and ball.xcor() > -340) and\
-            (int(ball.ycor()) in list(range(paddle_a.ycor() - 50, paddle_a.ycor() + 50))):
+                (int(ball.ycor()) in list(range(paddle_a.ycor() - 50, paddle_a.ycor() + 50))):
             ball.setx(-330)
             ball.dx *= -1
 

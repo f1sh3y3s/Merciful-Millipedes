@@ -11,9 +11,9 @@ from prompt_toolkit.layout.layout import Layout
 
 from crossword_widget import crossword_model
 from front_page import front_layout
+from pong_game_easy import game
 from reddit import reddit_layout
 from sections.job import job_layout
-from pong_game_easy import game
 
 model = crossword_model()
 jb_layout = job_layout
@@ -33,7 +33,7 @@ Hello and welcome to (newspaper name goes here). The most trusted news page in a
 To change between the pages, <b> Please enter 'tab' </b>
 To go back, <b> Please enter 'shift-tab' </b>
 To exit the current page, <b>Please enter 'Q' </b>
-Want to break out of terminal? Press P to play pong </b>
+Want to break out of terminal? <b>Press P to play pong </b>
 """
 
 

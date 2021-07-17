@@ -17,7 +17,7 @@ class FrameState:
     show_clues = False
 
 
-DOWNLOAD_AT_START = False  # Download puzzle at start
+DOWNLOAD_AT_START = True  # Download puzzle at start
 
 if DOWNLOAD_AT_START:
     try:

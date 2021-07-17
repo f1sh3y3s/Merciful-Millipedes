@@ -3,7 +3,7 @@ Repository for our submission to Python Discord Summer Code Jam 2021. Theme:- Th
 ## Description
 With the steady decline of the old newspaper on paper and an increasing dependence on online
 news and media, we have often forgotten the old feel.</br>
-So we present to you, our initiative, our very own newspaper.</br></br>
+So we present to you, our initiative, our very own newspaper right on your terminal.</br></br>
                     `|THE WANDERER|`
 </br></br>With a wide range of topics to read from including news sections such as world news, sports news, science, health and many more. <br/></br>You also can see top post of reddit from your terminal.</br>
 The best part is... ALL THE NEWS IS IN REALTIME!!</br></br>

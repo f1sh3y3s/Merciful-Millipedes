@@ -4,6 +4,7 @@ import turtle
 
 import keyboard
 
+
 def make_obj(color='white', stretch=(1, 1), cordinates=(0, 0), shape='square'):
     """The function to make the object on the turtle screen."""
     object_name = turtle.Turtle()

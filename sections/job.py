@@ -17,11 +17,8 @@ from thedaily.backend.scrapers.jobs_scrape import \
 
 kb = KeyBindings()
 
-
-
 kb.add("up")(focus_next)
 kb.add("down")(focus_previous)
-
 
 
 def get_job_data() -> str:

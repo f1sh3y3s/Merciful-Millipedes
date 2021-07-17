@@ -29,7 +29,8 @@ Hello and welcome to (newspaper name goes here). The most trusted news page in a
   the latest news on all topics ranging from World News to National News to Sports and various other
  sections.
 
-To enter the page, <b> Please enter 'o' </b>
+To change between the pages, <b> Please enter 'tab' </b>
+To go back, <b> Please enter 'shift-tab' </b>
 To exit the current page, <b>Please enter 'Q' </b>
 """
 
@@ -54,18 +55,8 @@ body = FloatContainer(
             style='bg:#fefefe fg:#000')]), floats=[])
 
 
-# 2. Key bindings
-kb = KeyBindings()
-
-
-@kb.add("q")
-def _(event: Any) -> None:
-    """Quit application."""
-    event.app.exit()
-
-
-@kb.add('o')
-def _(event: Any) -> None:
+def next_page(event: Any) -> None:
+    """Go to next page"""
     if not NewspaperState.main_window:
         NewspaperState.main_window = event.app.layout.current_window
     if not NewspaperState.float_active:
@@ -76,16 +67,57 @@ def _(event: Any) -> None:
         NewspaperState.current_float = _float
         NewspaperState.float_active = True
         event.app.layout.focus(obj)
+    else:
+        _float = NewspaperState.current_float
+        if _float in body.floats:
+            body.floats.remove(_float)
+            NewspaperState.float_active = False
+            event.app.layout.focus(NewspaperState.main_window)
+            NewspaperState.float_active = False
+
+
+def previous_page(event: Any) -> None:
+    """Go to previos page"""
+    if not NewspaperState.main_window:
+        NewspaperState.main_window = event.app.layout.current_window
+    if not NewspaperState.float_active:
+        page_num = NewspaperState.window_no - 1
+        if page_num < 0:
+            page_num = len(NewspaperState.models) - 1
+        obj = NewspaperState.models[page_num % len(NewspaperState.models)]
+        _float = Float(obj, width=100)
+        NewspaperState.window_no = page_num
+        body.floats.insert(0, _float)
+        NewspaperState.current_float = _float
+        NewspaperState.float_active = True
+        event.app.layout.focus(obj)
+    else:
+        _float = NewspaperState.current_float
+        if _float in body.floats:
+            body.floats.remove(_float)
+            NewspaperState.float_active = False
+            event.app.layout.focus(NewspaperState.main_window)
+            NewspaperState.float_active = False
+
+
+# 2. Key bindings
+kb = KeyBindings()
+
+
+@kb.add("q")
+def _(event: Any) -> None:
+    """Quit application."""
+    event.app.exit()
 
 
 @kb.add("tab")
 def _(event: Any) -> None:
-    _float = NewspaperState.current_float
-    if _float in body.floats:
-        body.floats.remove(_float)
-        NewspaperState.float_active = False
-        event.app.layout.focus(NewspaperState.main_window)
-        NewspaperState.float_active = False
+    next_page(event)
+
+
+@kb.add("s-tab")
+def _(event: Any) -> None:
+    previous_page(event)
 
 
 # 3. The `Application`

@@ -114,8 +114,8 @@ def main():
             ball.dx *= -1
             score_a += 1
             pen.clear()
-            pen.write("You: " + str(score_a) + "  Computer: " +\
-                str(score_b), align="center", font=('Courier', 20, 'normal'))
+            pen.write("You: " + str(score_a) + "  Computer: " + str(score_b), align="center",\
+                font=('Courier', 20, 'normal'))
 
         if ball.xcor() < -390:
             x, y = get_random_cords()
@@ -123,16 +123,15 @@ def main():
             ball.dx *= -1
             score_b += 1
             pen.clear()
-            pen.write("You: " + str(score_a) + "  Computer: " +\
-                str(score_b), align="center", font=('Courier', 20, 'normal'))
+            pen.write("You: " + str(score_a) + "  Computer: " + str(score_b), align="center", font=('Courier', 20, 'normal'))
 
         # Paddle and ball colision.
         if (ball.xcor() > 330 and ball.xcor() < 340) and\
-            (int(ball.ycor()) in list(range(int(paddle_b.ycor() - 50), int(paddle_b.ycor() + 50)))):
+                (int(ball.ycor()) in list(range(int(paddle_b.ycor() - 50), int(paddle_b.ycor() + 50)))):
             ball.setx(330)
             ball.dx *= -1
         if (ball.xcor() < -330 and ball.xcor() > -340) and\
-            (int(ball.ycor()) in list(range(int(paddle_a.ycor() - 50), int(paddle_a.ycor() + 50)))):
+                (int(ball.ycor()) in list(range(int(paddle_a.ycor() - 50), int(paddle_a.ycor() + 50)))):
             ball.setx(-330)
             ball.dx *= -1
 
@@ -144,6 +143,7 @@ def main():
                     paddle_b.sety(paddle_b.ycor() + 1)
                 if paddle_b.ycor() - 50 > ball_y:
                     paddle_b.sety(paddle_b.ycor() - 1)
+    return
 
 
 if __name__ == '__main__':

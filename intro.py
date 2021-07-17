@@ -34,7 +34,7 @@ Hello and welcome to The Wanderer. The most trusted news page in all the lands. 
  sections.
 
 To change between the pages, <b> Please enter 'tab' </b>
-To exit the current page, <b>Please enter 'Q' </b>
+To exit the application, <b>Please enter 'Q' </b>
 """
 
 

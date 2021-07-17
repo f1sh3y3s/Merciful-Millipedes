@@ -21,7 +21,7 @@ kb.add("down")(focus_previous)
 
 
 def get_reddit_data() -> str:
-    """Function for fetching job data"""
+    """Function for fetching reddit data"""
     topics = ['world', 'business', 'technology', 'entertainment', 'sports', 'science', 'health']
     all_news = []
     found_topics = []
@@ -33,6 +33,7 @@ def get_reddit_data() -> str:
     rows = len(all_news) // 2
     cols = 2
     hs = []
+    hs.append(VSplit([Frame(TextArea(text='Use arrow to navigate', read_only=True))]))
     for t_idx in range(rows):
         frame = ScrollablePane(VSplit([Frame(TextArea(text=f'Topic: {found_topics[t_idx*cols + j]}\n\n'
                                        f'{formatted_string(all_news[t_idx*cols + j])}\n',

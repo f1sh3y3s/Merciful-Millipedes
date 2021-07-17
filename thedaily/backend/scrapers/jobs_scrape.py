@@ -26,8 +26,8 @@ def get_top_jobs_from_indeed() -> List[str]:
 
     response = requests.get(url, headers={'User-Agent': agent})
     soup = BeautifulSoup(response.text, 'html.parser')
-
-    return list(map(sterilize_job, soup.find_all(lambda tag: tag.name == "a" and tag.get("id") and "job_" in tag.get("id"))))
+    jobs = soup.find_all(lambda tag: tag.name == "a" and tag.get("id") and "job_" in tag.get("id"))
+    return list(map(sterilize_job, jobs))
 
 
 def sterilize_job(job: Tag) -> JobPost:

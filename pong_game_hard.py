@@ -1,9 +1,7 @@
-from re import T
 import turtle
 import time
 import random
 import keyboard
-import threading
 
 def make_obj(color='white', stretch=(1, 1), cordinates=(0, 0), shape='square'):
     """The function to make the object on the turtle screen."""
@@ -67,17 +65,17 @@ def main():
     score_b = 0
 
     # Keyboard binding.
-    window.listen()
+    # window.listen()
     # Listen to up, w, down, s keys to move the paddles.
     # window.onkeypress(paddle_a_up, 'Up')
-    window.onkeypress(paddle_a_down, 'Down')
+    # window.onkeypress(paddle_a_down, 'Down')
 
     # Main game loop
     while True:
         if keyboard.is_pressed('Up arrow'):
             paddle_a_up(paddle_a)
         if keyboard.is_pressed('Down arrow'):
-            paddle_a_down(paddle_a)
+            paddle_a_down(paddle_a=paddle_a)
 
         a = 0
         if a == 10:

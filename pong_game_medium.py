@@ -36,7 +36,7 @@ def paddle_a_down(paddle_a: object) -> None:
     return
 
 
-def get_random_cords():
+def get_random_cords() -> int:
     """Give random cordinates for the ball to spawn."""
     x = random.randint(-200, 200)
     y = random.randint(-250, 250)

@@ -11,8 +11,8 @@ from prompt_toolkit.layout.layout import Layout
 
 from crossword_widget import crossword_model
 from front_page import front_layout
-from sections.job import job_layout
 from reddit import reddit_layout
+from sections.job import job_layout
 
 model = crossword_model()
 jb_layout = job_layout
@@ -32,6 +32,7 @@ Hello and welcome to (newspaper name goes here). The most trusted news page in a
 To enter the page, <b> Please enter 'o' </b>
 To exit the current page, <b>Please enter 'Q' </b>
 """
+
 
 class NewspaperState:
     """Hold attributes for Newspaper"""
@@ -63,7 +64,7 @@ def _(event: Any) -> None:
     event.app.exit()
 
 
-@kb.add('s-tab')
+@kb.add('o')
 def _(event: Any) -> None:
     if not NewspaperState.main_window:
         NewspaperState.main_window = event.app.layout.current_window
@@ -95,11 +96,9 @@ application = Application(
     enable_page_navigation_bindings=True,)
 
 
-
 def run() -> None:
     """Run application"""
     application.run()
-
 
 
 if __name__ == "__main__":

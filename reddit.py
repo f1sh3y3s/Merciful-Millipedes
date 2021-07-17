@@ -24,15 +24,19 @@ def get_reddit_data() -> str:
     """Function for fetching job data"""
     topics = ['world', 'business', 'technology', 'entertainment', 'sports', 'science', 'health']
     all_news = []
+    found_topics = []
     for topic in topics:
         news = get_top_posts_from_subreddit(topic)
-        all_news.append(news[:6])
+        if len(news) > 0:
+            all_news.append(news[:6])
+            found_topics.append(topic)
     rows = len(all_news) // 2
     cols = 2
     hs = []
     for t_idx in range(rows):
-        frame = ScrollablePane(VSplit([Frame(TextArea(text=f'Topic: {topics[t_idx*cols + j]}\n\n{formatted_string(all_news[t_idx*cols + j])}\n',
-                               wrap_lines=True, style='bg:#fefefe fg:#000'),
+        frame = ScrollablePane(VSplit([Frame(TextArea(text=f'Topic: {found_topics[t_idx*cols + j]}\n\n'
+                                       f'{formatted_string(all_news[t_idx*cols + j])}\n',
+                               wrap_lines=True, style='bg:#fefefe fg:#000', read_only=True),
                                width=Dimension()) for j in range(2)]))
         hs.append(frame)
     return hs
@@ -40,7 +44,9 @@ def get_reddit_data() -> str:
 
 def formatted_string(arr: List) -> str:
     """Function for formatting string"""
-    return '\n*'.join([str(elem) for elem in arr])
+    if arr and len(arr) > 0:
+        return '\n*'.join([str(elem) for elem in arr])
+    return ''
 
 
 def popup_window(title: str, body: Container) -> Frame:

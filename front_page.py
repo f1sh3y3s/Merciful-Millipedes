@@ -23,16 +23,20 @@ kb.add("down")(focus_previous)
 def get_news_data() -> str:
     """Function for fetching job data"""
     topics = ['world', 'business', 'technology', 'entertainment', 'sports', 'science', 'health']
+    found_topics = []
     all_news = []
     for topic in topics:
         news = get_top_news_from_googlenews(topic)
-        all_news.append(news[:6])
+        if len(news) > 0:
+            all_news.append(news[:6])
+            found_topics.append(topic)
     rows = len(all_news) // 2
     cols = 2
     hs = []
     for t_idx in range(rows):
-        frame = ScrollablePane(VSplit([Frame(TextArea(text=f'Topic: {topics[t_idx*cols + j]}\n\n{formatted_string(all_news[j + t_idx])}\n',
-                               wrap_lines=True, style='bg:#fefefe fg:#000'),
+        frame = ScrollablePane(VSplit([Frame(TextArea(text=f'Topic: {found_topics[t_idx*cols + j]}\n\n'
+                                      f'{formatted_string(all_news[j + t_idx])}\n',
+                               wrap_lines=True, style='bg:#fefefe fg:#000', read_only=True),
                                width=Dimension()) for j in range(2)]))
         hs.append(frame)
     return hs
@@ -50,4 +54,4 @@ def popup_window(title: str, body: Container) -> Frame:
 
 body = ScrollablePane(HSplit(get_news_data(), key_bindings=kb, style='bg:#fefefe fg:#000'))
 
-front_layout = popup_window('Top Jobs', body)
+front_layout = popup_window('Front News', body)

@@ -1,8 +1,12 @@
 import random
 import webbrowser
+from asyncio import Future
 
+from prompt_toolkit.layout.containers import HSplit
+from prompt_toolkit.layout.dimension import D
 from prompt_toolkit.shortcuts import button_dialog
 from prompt_toolkit.styles import Style
+from prompt_toolkit.widgets import Button, Dialog, Label
 
 # LINKS IN THE FUNCTIONS
 # Rickroll link https://bit.ly/IqT6zt
@@ -20,7 +24,7 @@ style = Style.from_dict({
 
 
 # gonna add few more
-def simple_ad() -> None:
+def simple_ad() -> button_dialog:
     """Calls dialog with content chosen randomly from list inside function"""
     content = [['You won lottery!', 'Congrutulations! To receive 5`000`000$\n'
                                     'at our site, you need to press the button below', 'GET PRIZE'],
@@ -38,17 +42,11 @@ def simple_ad() -> None:
                                      'Hurry, or you about to lose incredible offer in your life!', 'GO TO SHOP']
 
                ]
-    while True:
-        dialog = random.choice(content)
-        if button_dialog(
-                title=dialog[0],
-                text=dialog[1],
-                buttons=[
-                    (dialog[2], False),
-                    ('Close', True),
-                ], style=style
-        ).run():
-            break
+    dialog = random.choice(content)
+    return AdDialog(
+        title=dialog[0],
+        text=dialog[1],
+        button_text=dialog[2],)
 
 
 def joke_ad() -> None:
@@ -91,3 +89,27 @@ def bar_ad() -> None:
             bar += 1
             if bar == 10:
                 break
+
+
+class AdDialog:
+    """Dialog box for showing ads"""
+
+    def __init__(self, title: str, text: str, button_text: str) -> Dialog:
+        self.future = Future()
+
+        def set_done() -> None:
+            self.future.set_result(None)
+
+        ok_button = Button(text=button_text, handler=(lambda: set_done()))
+        cancel_button = Button(text="Close", handler=(lambda: set_done()))
+
+        self.dialog = Dialog(
+            title=title,
+            body=HSplit([Label(text=text)]),
+            buttons=[ok_button, cancel_button],
+            width=D(preferred=80),
+            modal=True
+        )
+
+    def __pt_container__(self):
+        return self.dialog

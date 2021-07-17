@@ -1,3 +1,5 @@
+from asyncio import ensure_future
+from time import time
 from typing import Any
 
 from prompt_toolkit import HTML
@@ -9,6 +11,7 @@ from prompt_toolkit.layout.containers import (
 from prompt_toolkit.layout.controls import FormattedTextControl
 from prompt_toolkit.layout.layout import Layout
 
+from annoying_ads import AdDialog, simple_ad
 from crossword_widget import crossword_model
 from front_page import front_layout
 from reddit import reddit_layout
@@ -43,6 +46,36 @@ class NewspaperState:
     window_no = 0  # remeber what float in
     float_active = False  # check i float is active
     main_window = None  # hold main window for focus
+    last_ad_time = 0  # time remainng after showing ad
+
+
+def show_ads() -> None:
+    """Show random ads after certain time"""
+    async def coroutine() -> None:
+        dialog = simple_ad()
+        await show_dialog_as_float(dialog)
+    now = time()
+    if now - NewspaperState.last_ad_time > 60:
+        ensure_future(coroutine())
+        NewspaperState.last_ad_time = now
+
+
+async def show_dialog_as_float(dialog: AdDialog) -> None:
+    """Coroutine for show ads"""
+    float_ = Float(content=dialog, z_index=2)
+    body.floats.insert(0, float_)
+
+    # app = get_app()
+
+    focused_before = application.layout.current_window
+    application.layout.focus(dialog)
+    result = await dialog.future
+    application.layout.focus(focused_before)
+
+    if float_ in body.floats:
+        body.floats.remove(float_)
+
+    return result
 
 
 body = FloatContainer(
@@ -73,6 +106,7 @@ def next_page(event: Any) -> None:
             NewspaperState.float_active = False
             event.app.layout.focus(NewspaperState.main_window)
             NewspaperState.float_active = False
+        show_ads()
 
 
 def previous_page(event: Any) -> None:
@@ -97,6 +131,7 @@ def previous_page(event: Any) -> None:
             NewspaperState.float_active = False
             event.app.layout.focus(NewspaperState.main_window)
             NewspaperState.float_active = False
+        show_ads()
 
 
 # 2. Key bindings

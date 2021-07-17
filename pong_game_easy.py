@@ -5,7 +5,7 @@ import turtle
 import keyboard
 
 
-def make_obj(color: str ='white', stretch: tuple =(1, 1), cordinates: tuple =(0, 0), shape: str ='square') -> object:
+def make_obj(color: str = 'white', stretch: tuple = (1, 1), cordinates: tuple = (0, 0), shape: str = 'square') -> object:
     """The function to make the object on the turtle screen."""
     object_name = turtle.Turtle()
     object_name.speed(0)

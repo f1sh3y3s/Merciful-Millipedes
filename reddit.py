@@ -21,7 +21,7 @@ kb.add("down")(focus_previous)
 
 
 def get_reddit_data() -> str:
-    """Function for fetching job data"""
+    """Function for fetching reddit data"""
     topics = ['world', 'business', 'technology', 'entertainment', 'sports', 'science', 'health']
     all_news = []
     found_topics = []

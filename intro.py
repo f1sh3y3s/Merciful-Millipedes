@@ -21,8 +21,14 @@ kb = KeyBindings()
 
 @kb.add('j')
 def _(event: Any) -> None:
-    """Toggle window"""
+    """Toggle job window"""
     JobStates.show_job = not JobStates.show_job
+
+
+@kb.add('c')
+def _(event: Any) -> None:
+    """Toggle crossword window"""
+    PuzzleStats.show_puzzle = not PuzzleStats.show_puzzle
 
 
 @kb.add('q')
@@ -84,7 +90,7 @@ dialog = Dialog(title='NewsPaper', body=intro_page_split, buttons=[job_button, c
                 width=D(),
                 modal=False)
 
-app = Application(layout=Layout(dialog), key_bindings=kb, full_screen=True)
+app = Application(layout=Layout(intro_page_split), key_bindings=kb, full_screen=True)
 
 
 app.run()

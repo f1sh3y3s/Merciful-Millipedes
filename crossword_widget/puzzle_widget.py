@@ -1,9 +1,7 @@
 from typing import Any
 
-from prompt_toolkit.application import Application
 from prompt_toolkit.filters import Condition
 from prompt_toolkit.key_binding import KeyBindings
-from prompt_toolkit.layout import Layout
 from prompt_toolkit.layout.containers import (
     ConditionalContainer, HSplit, VSplit, Window, WindowAlign
 )
